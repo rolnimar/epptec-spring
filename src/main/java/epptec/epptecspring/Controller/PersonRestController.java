@@ -65,6 +65,7 @@ public class PersonRestController {
 			personService.deletePersonByBirthNumber(birtNumber);
 			return new ResponseEntity<>(birtNumber,HttpStatus.OK);
 		} catch (PersonNotFoundException ex) {
+			ioService.printLine(ex.getMessage());
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,ex.getMessage(),ex);
 		}
 	}
