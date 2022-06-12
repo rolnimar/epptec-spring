@@ -1,18 +1,21 @@
 package epptec.epptecspring.Entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
+
+@Data
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Person {
-	private final String name;
-	private final String surname;
-	private final String birthNumber;
+	private String name;
+	private String surname;
+	private String birthNumber;
 	private Integer age;
-
-	public Person(String name, String surname, String birthNumber) {
-		this.name = name;
-		this.surname = surname;
-		this.birthNumber = birthNumber;
-	}
 
 	@Override
 	public String toString() {

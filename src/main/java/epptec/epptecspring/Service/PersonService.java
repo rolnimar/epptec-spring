@@ -2,9 +2,12 @@ package epptec.epptecspring.Service;
 
 
 import epptec.epptecspring.Entity.Person;
+import epptec.epptecspring.Exception.EmptyInputException;
+import epptec.epptecspring.Exception.InvalidBirthNumberException;
 import epptec.epptecspring.Exception.PersonAlreadyExistsException;
 import epptec.epptecspring.Exception.PersonNotFoundException;
 import epptec.epptecspring.Repository.PersonRepository;
+import epptec.epptecspring.Util.BirthNumberUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -22,7 +25,15 @@ public class PersonService {
 		this.personRepository = personRepository;
 	}
 
-	public void savePerson(Person person) throws PersonAlreadyExistsException {
+	public void savePerson(Person person) throws PersonAlreadyExistsException, InvalidBirthNumberException, EmptyInputException {
+		if(!BirthNumberUtil.isRightFormat(person.getBirthNumber())){
+			throw new InvalidBirthNumberException();
+		}
+		if(person.getName().isEmpty() || person.getSurname().isEmpty()){
+			throw new EmptyInputException();
+		}
+		person.setBirthNumber(BirthNumberUtil.normalizeBirthNumber(person.getBirthNumber()));
+		person.setAge(birthNumberService.calculateAgeFromBirthNumber(person.getBirthNumber()));
 		personRepository.savePerson(person);
 	}
 

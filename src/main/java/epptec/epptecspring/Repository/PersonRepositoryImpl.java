@@ -33,10 +33,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 	}
 
 	@Override
-	public void deletePersonByBirthNumber(String birthId) throws PersonNotFoundException {
-		if(personDatabase.remove(birthId) == null){
+	public boolean deletePersonByBirthNumber(String birthNumber) throws PersonNotFoundException {
+		if(personDatabase.remove(birthNumber) == null){
 			throw new PersonNotFoundException();
 		}
+		return true;
 	}
 
 	@Override

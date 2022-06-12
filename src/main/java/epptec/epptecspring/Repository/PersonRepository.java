@@ -12,6 +12,6 @@ import java.util.Collection;
 public interface PersonRepository {
 	Person fetchPersonByBirthNumber(String birthId) throws PersonNotFoundException;
 	void savePerson(Person person) throws PersonAlreadyExistsException;
-	void deletePersonByBirthNumber(String birthId) throws PersonNotFoundException;
+	boolean deletePersonByBirthNumber(String birthId) throws PersonNotFoundException;
 	Collection<Person> fetchAllPersons();
 }

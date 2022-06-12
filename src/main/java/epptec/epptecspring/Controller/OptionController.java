@@ -2,6 +2,8 @@ package epptec.epptecspring.Controller;
 
 
 import epptec.epptecspring.Entity.Person;
+import epptec.epptecspring.Exception.EmptyInputException;
+import epptec.epptecspring.Exception.InvalidBirthNumberException;
 import epptec.epptecspring.Exception.PersonAlreadyExistsException;
 import epptec.epptecspring.Exception.PersonNotFoundException;
 import epptec.epptecspring.Service.IOService;
@@ -64,10 +66,10 @@ public class OptionController {
 		ioService.printSurnamePrompt();
 		String surname = ioService.scanString();
 		try{
-			Person person = new Person(name,surname,birthNumber);
+			Person person = Person.builder().name(name).surname(surname).birthNumber(birthNumber).build();
 			personService.savePerson(person);
 			ioService.printCurrentDatabaseState(personService.getAllPersons());
-		} catch (PersonAlreadyExistsException ex){
+		} catch (PersonAlreadyExistsException | InvalidBirthNumberException | EmptyInputException ex){
 			ioService.printLine(ex.getMessage());
 		}
 		handleNextAction();
